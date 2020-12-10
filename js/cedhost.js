@@ -2,7 +2,7 @@ var name,email,mob,pass,rpass,sq,sa;
 
 function validateForm(){
     var regexname = /^([a-zA-Z]+\s?)*$/;
-    var regexmob = /^(0|[+91]{3})?[7-9][0-9]{9}$/;
+    var regexmob = /"\d{3}[\-]\d{3}[\-]\d{4}"/;
     var regexemail =  /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
     var regexpass =/^(?=.*\d)(?=.*[-+_!@#$%^&*., ?])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
     var name,email,mob,pass,rpass;

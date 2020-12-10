@@ -48,7 +48,7 @@ session_start();
 									 <li class=<?php echo ($link=="/training/Cedhosting/Blog.php")?"active":"" ?>><a href="Blog.php">Blog</a></li>
 									 <li class=<?php echo ($link=="/training/Cedhosting/contact.php")?"active":"" ?>><a href="contact.php">Contact</a></li>
 									 <li class=<?php echo ($link=="/training/Cedhosting/cart.php")?"active":"" ?>><a href="cart.php"><i class="fa fa-shopping-cart" style="font-size:21px"></i></a></li>
-									 <?php if(!isset($_SESSION['User'])):?>
+									 <?php if(empty(isset($_SESSION['User']))):?>
 										<li class=<?php echo ($link=="/training/Cedhosting/login.php")?"active":"" ?>><a href="login.php">Login</a></li>
 									 <?php endif?>
 								

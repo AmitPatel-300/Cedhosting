@@ -56,11 +56,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<h3>personal information</h3>
 					 <div>
 						<span>Name<label id="NA">*</label></span>
-						<input type="text" name="name" id="NAME">
+						<input type="text" placeholder="Enter name in character only" name="name" id="NAME">
 					 </div>
 					 <div>
 						<span>Email Address<label>*</label></span>
-						<input type="email" name="email" id="EMAIL">
+						<input type="email" name="email" placeholder="enter your email" id="EMAIL">
 					 </div>
 					 
 					 <div>
@@ -76,14 +76,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					 </div>
 					 <div>
 						 <span>Mobile<label>*</label></span>
-						 <input type="number" id="MOB" min="1" name="mob" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  maxlength="11"> 
+						 <input type="number" placeholder="enter mobile number upto 11 digit including 0" id="MOB" min="1" name="mob" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  maxlength="11"> 
 					 </div>
 					 <div>
 						  
 					 </div>
 					 <div>
 						 <span id="Sa">Security Answer<label>*</label></span>
-						 <input type="text" id="SA" name="sa"> 
+						 <input type="text" placeholder="please answer" id="SA"  onkeypress="return event.charCode >= 65  && event.charCode <= 122 " name="sa"> 
 					 </div>
 					 <div class="clearfix"> </div>
 					   <a class="news-letter" href="#">
@@ -94,11 +94,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						    <h3>login information</h3>
 							 <div>
 								<span>Password<label>*</label></span>
-								<input type="password" id="PASS" name="pass" >
+								<input type="password" id="PASS" placeholder="password contain atleast 1 uppercase,lowercase,numerica & special character" name="pass" >
 							 </div>
 							 <div>
 								<span>Confirm Password<label>*</label></span>
-								<input type="password" id="RPASS" name="rpass">
+								<input type="password" id="RPASS"  placeholder="password contain atleast 1 uppercase,lowercase,numerica & special character" name="rpass">
 							 </div>
 					 </div>
 				

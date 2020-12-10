@@ -1,9 +1,34 @@
+<?php
+/**
+ * Template File Doc Comment
+ * 
+ * PHP version 7
+ *
+ * @category Template_Class
+ * @package  Template_Class
+ * @author   Author <author@domain.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://localhost/
+ */
+
+/**
+ * Template Class Doc Comment
+ * 
+ * Template Class
+ * 
+ * @category Template_Class
+ * @package  Template_Class
+ * @author   Author <author@domain.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://localhost/
+ */
+?>
 <?php require_once 'User.php';
 $User=new User();
-if(isset($_POST['login'])) {
-  $email=isset($_POST['email'])?$_POST['email']:'';
-  $pass=md5(isset($_POST['pass'])?$_POST['pass']:'');
-  $User->login($email,$pass);
+if (isset($_POST['login'])) {
+    $email=isset($_POST['email'])?$_POST['email']:'';
+    $pass=md5(isset($_POST['pass'])?$_POST['pass']:'');
+    $User->login($email, $pass);
 }
 ?>
 <!--
@@ -68,8 +93,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<span>Password<label>*</label></span>
 										<input type="password" name="pass" required> 
 									  </div>
+									  <?php if(empty ($_SESSION['User'])):?>
 									  <a class="forgot" href="#">Forgot Your Password?</a>
 									  <input type="submit" value="Login" name="login">
+									  <?php endif?>
 									</form>
 								</div>	
 								<div class="clearfix"> </div>
@@ -79,8 +106,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 <!-- login -->
-				<!---footer--->
-			<?php include 'footer.php';?>
-			<!---footer--->
+<!---footer--->
+<?php require 'footer.php';?>
+<!---footer--->
 </body>
 </html>
