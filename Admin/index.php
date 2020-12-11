@@ -1,6 +1,5 @@
 <?php include 'header.php'?>
     <!-- Header -->
-    <!-- Header -->
     <div class="header bg-primary pb-6">
       <div class="container-fluid">
         <div class="header-body">
@@ -386,8 +385,8 @@
                   </tr>
                 </tbody>
               </table>
-              </div>
+            </div>
           </div>
         </div>
       </div>
-<?php include 'footer.php'?>
+ <?php include 'footer.php'?>

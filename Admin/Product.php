@@ -24,12 +24,13 @@
  */
 ?>
 <?php
-require_once '../Dbcon.php';
+require_once 'Dbcon.php';
 class Product
     {
     public $conn;
     public $name;
     public $rows;
+    
     public function __construct()
     {
         $con=new Dbcon(); 
@@ -37,10 +38,22 @@ class Product
     }
 
  
+   
+    public function hostinglist() {
+        $sql="Select * from tbl_product where `prod_parent_id`=1";
+            $result = $this->conn->query($sql);
+                if($result->num_rows>0) {
+                    while($rows=$result->fetch_assoc()){
+                        $this->rows[]=$rows;
+                }
+            }
+            return json_encode($this->rows);
+    } 
+
 
     public function parent_product() 
     {
-        $sql="Select * from `tbl_product` where `id`=1";
+        $sql="Select * from `tbl_product` where `prod_parent_id`=1";
          $result = $this->conn->query($sql);
         if ($result->num_rows>0) {
             while ($rows=$result->fetch_assoc()) {
@@ -50,11 +63,11 @@ class Product
         return $name;
     }
 
-    public function Addcategory($name, $ava ) 
+    public function Addcategory($name, $ava) 
     {
         $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `link`,`prod_available`,`prod_launch_date`)
         VALUES ('1','$name', NULL, '$ava',NOW())";
-        if ($this->conn->query($sql) === TRUE ) {
+        if ($this->conn->query($sql) === true ) {
             return 1;// return "New record created successfully";
           } else {
             return 0;//echo "Error: " . $sql . "<br>" . $this->conn->error;
@@ -86,5 +99,50 @@ class Product
         }
     }
 
+   //edit category
+    public function editCategory($id) 
+    {
+       
+        $sql="Select * from tbl_product where `id`=$id";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows>0) {
+                $arr['data']=array();
+            while ($rows=$result->fetch_assoc()) {
+                    $this->rows[]=$rows;
 
+            }   
+        }
+        return json_encode($this->rows);
+    }
+
+    public function updateCategory($id, $name, $ava, $link)
+    {
+        $sql= "UPDATE `tbl_product` SET `prod_name`='$name' ,`prod_available`='$ava',`link`='$link' WHERE `id` ='$id'";
+        if ($this->conn->query($sql) === true) {
+            return 1;
+        } else {
+                return "Error updating record: " . $this->conn->error;
+        }
+    }
+
+    public function AddMultiple($prodid, $pname, $plink, $mprice, $aprice, $sku, $prod_desc_encode) 
+    {
+        $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `link`,`prod_available`,`prod_launch_date`)
+        VALUES ('$prodid','$pname','$plink','1',NOW())";
+        if ($this->conn->query($sql) === TRUE ) {
+            $last_id = $this->conn->insert_id;
+            $sql = " INSERT INTO tbl_product_description(`prod_id`,`description`,`mon_price`,`annual_price`,`sku`)
+            VALUES ('$last_id','$prod_desc_encode','$mprice','$aprice','$sku')";
+            if ($this->conn->query($sql) == true ) {
+                return 1;
+              } else {
+                return "Error: " . $sql . "<br>" . $this->conn->error;
+              }
+           
+          } else {
+            return  "Error: " . $sql . "<br>" . $this->conn->error;
+          }
+    }
 }
+
+

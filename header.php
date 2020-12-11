@@ -1,9 +1,6 @@
 <?php
 $link=$_SERVER['PHP_SELF'];
 session_start();
-// if(isset($_SESSION['User'])){
-// 	print_r($_SESSION['User']);
-// }
 ?>
 
 <script type="text/javascript" src="js/cedhost.js"></script>
@@ -34,12 +31,9 @@ session_start();
 								 <li class=<?php echo ($link=="/training/Cedhosting/services.php")?"active":"" ?>><a href="services.php">Services</a></li>
 								<!-- <li><a href="about.html">Services</a></li> -->
 									 <li class="dropdown">	
-									  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hosting<i class="caret"></i></a>
-									  <ul class="dropdown-menu">
-										<li class=<?php echo ($link=="/training/Cedhosting/linuxhosting.php")?"active":"" ?>><a href="linuxhosting.php">Linux hosting</a></li>
-										<li class=<?php echo ($link=="/training/Cedhosting/wordpresshosting.php")?"active":"" ?>><a href="wordpresshosting.php">WordPress Hosting</a></li>
-										<li class=<?php echo ($link=="/training/Cedhosting/windowshosting.php")?"active":"" ?>><a href="windowshosting.php">Windows Hosting</a></li>
-										<li class=<?php echo ($link=="/training/Cedhosting/cmshosting.php")?"active":"" ?>><a href="cmshosting.php">CMS Hosting</a></li>
+									  <a href="#" class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Hosting<i class="caret"></i></a>
+									  <ul class="dropdown-menu" id="hostinglink">
+								
 									</ul>			
 								    </li>
 										
@@ -64,3 +58,21 @@ session_start();
 				</nav>
 			</div>
 		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		<script>
+		$(document).ready(function(){		
+			$.ajax({
+				url :'Ajaxaction.php',
+				type : 'post',
+				dataType  :'json',
+				data :{action:"hostinglist"},
+				success : function(data) {
+					html='';
+					for(var i=0;i<data.length;i++){
+						html+='<li><a href='+data[i]+'>'+data[i]['prod_name']+'</a></li>';
+					}
+					$("#hostinglink").html(html);
+				}
+			});
+		})
+		</script>

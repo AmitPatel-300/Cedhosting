@@ -25,41 +25,36 @@
 ?>
 <?php include_once 'Product.php'?>
 <?php require 'header.php'?>
-<?php include_once 'Dbcon.php'?>
 <?php
 $product=new Product();
 $output=$product->parent_product(); 
 ?>
     <!-- Header -->
     <!-- Header -->
-    <div class="header bg-primary pb-6">
-      <div class="container-fluid">
-        <div class="header-body">
-          <div class="row align-items-center py-4">
-            <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Add Product</h6>
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Add Product</li>
-                </ol>
-              </nav>
-            </div>
-            <div class="col-lg-6 col-5 text-right">
-              <a href="#" class="btn btn-sm btn-neutral">New</a>
-              <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-            </div>
+  <div class="header bg-primary pb-6">
+  <div class="container-fluid">
+  <div class="header-body">
+  <div class="row align-items-center py-4">
+  <div class="col-lg-6 col-7">
+    <h6 class="h2 text-white d-inline-block mb-0">Add Product</h6>
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+      <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+        <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+        <li class="breadcrumb-item"><a href="#">Dashboards</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+      </ol>
+    </nav>
+  </div>
+
           </div>
           <!-- Card stats -->
           <div class="row">
             <div class="col-xl-3 col-md-6">
               
-            </div>
-            <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
-                <!-- Card body -->
-                
+                  <div class="row">
+                  </div>
+                  
+                </div>
               </div>
             </div>
             <div class="col-xl-3 col-md-6">
@@ -72,9 +67,8 @@ $output=$product->parent_product();
         </div>
       </div>
     </div>
-    
-      <!-- Page content -->
-      <div class="container mt--8 pb-1 ">
+    <!-- Page content -->
+    <div class="container mt--8 pb-1 ">
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7 mt-4 ml-4">
           <div class="card bg-secondary border-0 mb-0">
@@ -124,32 +118,26 @@ $output=$product->parent_product();
                   <button type="button" class="btn btn-primary my-4" id="category">ADD</button>
                 </div>
               </form>
-              </div>
+            </div>
           </div>
-          <div class="row mt-3">
+          <div class="row ">
+            
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-<!-- Modal -->
-<div class="modal fade" id="editcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content ">
-      <div class="modal-header">
-        <h5 class="modal-title" class="text-muted h3"  id="exampleModalLongTitle">Edit Category</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body showeditcat">
-      </div>
-    
     </div>
   </div>
+</div>
+</div>
+</div>
+</div>
 </div>
   <div class="container-fluid">
     <div id="showdata">
    </div>
   </div>
-<?php include 'footer.php'?>
+</div>
+  </div>
+  
+<?php 'footer.php'?>

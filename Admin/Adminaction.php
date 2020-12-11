@@ -45,6 +45,45 @@ case 'deleteCategory':
     $data= $product->deleteCategory($id);
     echo $data;
     break;   
+
+case 'editCategory':
+    $id=$_POST['Id'];
+    $data= $product->editCategory($id);
+    echo $data;
+    break;   
+
+case 'updateCategory':
+    $name=$_POST['Name'];
+    $ava=$_POST['Ava'];
+    $id=$_POST['Id'];
+    $link=$_POST['Link'];
+    $data= $product->updateCategory($id, $name, $ava, $link);
+    echo $data;
+    break;   
+
+case "hostinglist":
+    $data=$product->hostinglist();
+    print_r($data); 
+    break;
+
+case "AddMultiple":
+    $prodid=$_POST["PRODID"];
+    $pname=$_POST["PNAME"];
+    $plink=$_POST['PLINK'];
+    $mprice=$_POST['MPRICE'];
+    $aprice=$_POST['APRICE'];
+    $sku=$_POST['SKU'];
+    $wsp=$_POST['WSP'];
+    $band=$_POST['Band'];
+    $domain=$_POST['DOM'];
+    $lang=$_POST['LANG'];
+    $mail=$_POST['Mail'];
+    $prod_desc=array('web_space'=>$wsp,'band'=>$band,'domain'=>$domain,
+    'lang'=>$lang,'mail'=>$mail);
+    $prod_desc_encode=json_encode($prod_desc);
+    $data=$product->AddMultiple($prodid, $pname, $plink, $mprice, $aprice, $sku, $prod_desc_encode);
+    print_r($data); 
+    break;
 }
 
 

@@ -39,7 +39,7 @@ if(empty($_SESSION['Admin'])){
   <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="assets/js/argon.js?v=1.2.0"></script>
-  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
 <script type="text/javascript" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 </head>
@@ -104,7 +104,6 @@ if(empty($_SESSION['Admin'])){
             <a  class="nav-link" href="userallrides.php">Generate Invoice</a>
             </li>
             </ul>
-
             </li>
             <li class="nav-item">
               <a class="nav-link"  href="#page3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle abc">
