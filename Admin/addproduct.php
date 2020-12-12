@@ -59,8 +59,9 @@
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h3 ">Enter Product Name *</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2"  type="text" id="prodname">
+                  <input class="form-control pl-2"  type="text" id="prodname" onfocusout="pname()"><br>
                   </div>
+                  <small class="text text-danger" id="pn"></small>
                 </div>
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
@@ -79,24 +80,28 @@
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h3 ">Enter Monthly Price</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2" placeholder="ex:23"  type="text" id="mprice">
+                  <input class="form-control pl-2" placeholder="ex:23"  type="text" maxlength="15" id="mprice" onfocusout="monthprice()">
                   </div>
+                  <small class="text text-danger" id="mp"></small>
                   <label class="h5 text-gray">This will be Monthly Plan</label>
                 </div>
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h4">Enter Annual Price</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2" placeholder="ex:23" type="text" id="aprice">
+                  <input class="form-control pl-2" placeholder="ex:23" type="text" maxlength="15" id="aprice" onfocusout="annualprice()">
                   </div>
+                  <small class="text text-danger" id="ap"></small>
                   <label class="h5 text-gray">This will be Annual Plan</label>
+                  
                 </div>
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h4">SKU</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2"   type="text" id="sku">
+                  <input class="form-control pl-2" type="text" id="sku" onfocusout="SKU()">
                   </div>
+                  <small class="text text-danger" id="SKU"></small>
                 </div>
                 <hr>
                 <div class="text-center text-muted mb-4">
@@ -106,8 +111,9 @@
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h3 ">Web Space(in GB) *</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2" type="text" id="webspace">
-                  </div>
+                  <input class="form-control pl-2" type="text" id="webspace" maxlength="5" onfocusout="WEBSPACE()">
+                 </div>
+                 <small class="text text-danger" id="ws"></small>
                   <label class="h5 text-gray">Enter 0.5 for 512</label>
                 </div>
                 </div>
@@ -115,8 +121,9 @@
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h3 ">BandWidth (IN GB) *</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2" type="text" id="band">
+                  <input class="form-control pl-2" type="text" id="band" maxlength="5" onfocusout="BandWidth()">
                   </div>
+                  <small class="text text-danger" id="bw"></small>
                   <label class="h5 text-gray">Enter 0.5 for 512</label>
                 </div>
                 </div>
@@ -124,15 +131,17 @@
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h3  mt-1">Free Domain *</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2"  type="text" id="domain">
+                  <input class="form-control pl-2"  type="text" id="domain" onfocusout="FreeDomain()">
                   </div>
+                  <small class="text text-danger" id="fd"></small>
                   <label class="h5 text-gray">Enter 0 if no domain available in this service</label>
                 </div>
                 <div class="form-group mt-1">
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h3 ">Language/Technology Support</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2"  type="text" id="lang">
+                  <input class="form-control pl-2"  type="text" id="lang" onfocusout="LangSupp()">
+                  <small class="text text-danger" id="lts"></small>
                   </div>
                   <label class="h5 text-gray">Separate by (,) Ex: PHP, MySQL, MongoDB</label>
                 </div>
@@ -140,8 +149,9 @@
                   <div class="input-group input-group-merge input-group-alternative">
                   <label class="h3">Mailbox*</label>  
                   <div class="input-group ">
-                  <input class="form-control pl-2"  type="text" id="mail">
+                  <input class="form-control pl-2"  type="text" id="mail" onfocusout="MailBox()" >
                   </div>
+                  <small class="text text-danger" id="mb"></small>
                   <label class="h5 text-gray">Enter Number of mailbox will be provided, enter 0 if none</label>
                 </div>
                 
@@ -152,11 +162,6 @@
             </div>
           </div>
          </div>
-           </div>
-          <div class="row mt-3">
-            
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -181,7 +186,7 @@
 
 <script>
 $(document).ready(function(){
-  
+  $(".btn").attr("disabled", true);
   $.ajax({
     url :'Adminaction.php',
     type : 'post',
@@ -198,18 +203,19 @@ $(document).ready(function(){
     }
   });
 
+  
   $('.addproduct').click(function(){
-    prodid=$('#aval').val();
-    prodname=$('#prodname').val();
-    prodlink=$('#link').val();
-    monthprice=$('#mprice').val();
-    annualprice=$('#aprice').val();
-    sku=$('#sku').val();
-    webspace=$('#webspace').val();
-    band=$('#band').val();
-    domain=$('#domain').val();
-    lang=$('#lang').val();
-    mail=$('#mail').val();
+    prodid=$('#aval').val().trim();
+    prodname=$('#prodname').val().trim();
+    prodlink=$('#link').val().trim();
+    monthprice=$('#mprice').val().trim();
+    annualprice=$('#aprice').val().trim();
+    sku=$('#sku').val().trim();
+    webspace=$('#webspace').val().trim();
+    band=$('#band').val().trim();
+    domain=$('#domain').val().trim();
+    lang=$('#lang').val().trim();
+    mail=$('#mail').val().trim();
     x="AddMultiple";
     $.ajax({
     url :'Adminaction.php',
@@ -224,11 +230,179 @@ $(document).ready(function(){
       LANG:lang,Mail:mail
     },
     success : function(data) {
+      if(data==1){
+        alert("Inserted successfully ");
+        window.location.href='addproduct.php';
+      }
     }
   });
 
     });
-
   });
 </script>
-<?php include 'footer.php'?>
+<script>
+function pname(){
+var regex=/^[A-Za-z0-9_!"\-]+$/;
+
+var pname=document.getElementById('prodname').value;
+if(pname==""){
+  document.getElementById('prodname').focus();
+  document.getElementById('pn').innerHTML="please filled product name field";
+  return false;
+}
+if(!(pname).match(regex)){
+  document.getElementById('pn').innerHTML="alphanumeric, alphabetic and special character - only";
+  document.getElementById('prodname').focus();
+  return false;
+}
+if(pname.match(regex)){
+  document.getElementById('pn').innerHTML="";
+}
+}
+
+function monthprice(){
+  var regnum=/^[0-9]*\.?[0-9]*$/;
+  var month=document.getElementById('mprice').value;
+if(month==""){
+ document.getElementById('mp').innerHTML="please filled month field";
+  document.getElementById('mprice').focus();
+  return false;
+}
+  if(!(month).match(regnum)){
+  document.getElementById('mp').innerHTML="numeric and special character ('.') only";
+  document.getElementById('mprice').focus();
+  return false;
+}
+
+if(month.match(regnux)){
+  document.getElementById('mp').innerHTML="";
+}
+}
+
+function annualprice(){
+var regnum=/^[0-9]*\.?[0-9]*$/;
+var annual=document.getElementById('aprice').value;
+if(annual==""){
+document.getElementById('ap').innerHTML="please filled month field";
+document.getElementById('aprice').focus();
+return false;
+}
+if(!(annual).match(regnum)){
+document.getElementById('ap').innerHTML="numeric and special character ('.') only";
+document.getElementById('aprice').focus();
+return false;
+}
+
+if(month.match(regnux)){
+  document.getElementById('ap').innerHTML="";
+}
+}
+
+function SKU(){
+var skureg=/^[A-za-z0-9_#]*$/;
+sku=document.getElementById('sku').value;
+if(sku==""){
+document.getElementById('SKU').innerHTML="please filled sku field";
+document.getElementById('sku').focus();
+return false;
+  }
+
+if(!(sku).match(skureg)){
+document.getElementById('SKU').innerHTML="Not only special Char";
+document.getElementById('sku').focus();
+return false;
+}
+}
+
+function WEBSPACE(){
+var regnum=/^[0-9]*\.?[0-9]*$/;
+var web=document.getElementById('webspace').value;
+if(web==""){
+document.getElementById('ws').innerHTML="please filled this field with max 5 digit";
+document.getElementById('webspace').focus();
+return false;
+}
+if(!(web).match(regnum)){
+document.getElementById('ws').innerHTML="numeric and special character ('.') only";
+document.getElementById('webspace').focus();
+return false;
+}
+if(web.match(regnum)){
+  document.getElementById('ws').innerHTML="";
+}
+}
+
+function BandWidth(){
+var regnum=/^[0-9]*\.?[0-9]*$/;
+var bandwidth=document.getElementById('band').value;
+if(bandwidth==""){
+document.getElementById('bw').innerHTML="please filled this field with max 5 digit";
+document.getElementById('band').focus();
+return false;
+}
+if(!(bandwidth).match(regnum)){
+document.getElementById('bw').innerHTML="numeric and special character ('.') only";
+document.getElementById('band').focus();
+return false;
+}
+if(bandwidth.match(regnum)){
+  document.getElementById('bw').innerHTML="";
+}
+}
+
+function FreeDomain(){
+  var regex=/^[A-Za-z0-9_!]+$/;
+var domain=document.getElementById('domain').value;
+if(domain==""){
+document.getElementById('fd').innerHTML="please filled domain field";
+document.getElementById('domain').focus();
+return false;
+}
+if(!(domain).match(regex)){
+document.getElementById('fd').innerHTML="numeric and alphabetic only";
+document.getElementById('domain').focus();
+return false;
+}
+if(domain.match(regex)){
+  document.getElementById('fd').innerHTML="";
+}
+}
+
+function MailBox(){
+var regex=/^[A-Za-z0-9_!]+$/;
+var mail=document.getElementById('mail').value;
+if(mail==""){
+document.getElementById('mb').innerHTML="please filled mailbox field";
+document.getElementById('mail').focus();
+return false;
+}
+if(!(mail).match(regex)){
+document.getElementById('mb').innerHTML="numeric and alphabetic only";
+document.getElementById('mail').focus();
+return false;
+}
+if(mail.match(regex)){
+  document.getElementById('mb').innerHTML="";
+  $(".btn").attr("disabled", false);
+}
+}
+
+function LangSupp(){
+var regex=/^[A-Za-z_!"\-]+$/;
+var lang=document.getElementById('lang').value;
+if(lang==""){
+document.getElementById('lts').innerHTML="please filled language and support field";
+document.getElementById('lang').focus();
+return false;
+}
+if(!(lang).match(regex)){
+document.getElementById('lts').innerHTML="alphanumeric, alphabetic and special character (-) only";
+document.getElementById('lang').focus();
+return false;
+}
+if(lang.match(regex)){
+  document.getElementById('lts').innerHTML="";
+}
+}
+
+</script>

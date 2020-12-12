@@ -84,6 +84,24 @@ case "AddMultiple":
     $data=$product->AddMultiple($prodid, $pname, $plink, $mprice, $aprice, $sku, $prod_desc_encode);
     print_r($data); 
     break;
+
+case "ShowProductsDesc":
+    $data=$product->ShowProductsDesc();
+    print_r($data);
+    
+    break;
+
+case 'MultiProductsdelete':
+    $id=$_POST['Id'];
+    $data= $product->MultiProductsdelete($id);
+    echo $data;
+    break;  
+
+case 'editProduct':
+    $id=$_POST['Id'];
+    $data= $product->editProduct($id);
+    echo $data;
+    break;  
 }
 
 

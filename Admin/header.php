@@ -22,12 +22,13 @@ if(empty($_SESSION['Admin'])){
   <!-- Page plugins -->
   <!-- Argon CSS -->
   <link rel="stylesheet" href="assets/css/argon.css?v=1.2.0" type="text/css">
-  
+
   <script src="jquery-3.5.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <!-- DataTables CSS -->
 
-  <script type="text/javascript" src="admin.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
   <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/js-cookie/js.cookie.js"></script>
@@ -39,8 +40,6 @@ if(empty($_SESSION['Admin'])){
   <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
   <!-- Argon JS -->
   <script src="assets/js/argon.js?v=1.2.0"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-<script type="text/javascript" src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
 </head>
 <body>
@@ -78,7 +77,7 @@ if(empty($_SESSION['Admin'])){
             <a class="nav-link" href="addproduct.php">Add Product</a>
             </li>
             <li class="nav-item">
-            <a  class="nav-link" href="userallrides.php">View Products</a>
+            <a  class="nav-link" href="viewproduct.php">View Products</a>
             </li>
             <li class="nav-item">
             <a  class="nav-link" href="userallrides.php">Create New Offers</a>

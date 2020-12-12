@@ -75,12 +75,12 @@ class Product
     }
 
 
+
     public function showcategory()
     {
         $sql="Select * from tbl_product where `id`!=1";
            $result = $this->conn->query($sql);
         if ($result->num_rows>0) {
-            $arr['data']=array();
             while ($rows=$result->fetch_assoc()) {
                 $this->rows[]=$rows;
 
@@ -88,6 +88,7 @@ class Product
         }
           return json_encode($this->rows);
     }
+    
      //category deletion
     public function deleteCategory($id) 
     {
@@ -143,6 +144,37 @@ class Product
             return  "Error: " . $sql . "<br>" . $this->conn->error;
           }
     }
+    //show product 
+
+    public function ShowProductsDesc()
+    {
+        $sql="SELECT `tbl_product`.*,`tbl_product_description`.* FROM tbl_product JOIN tbl_product_description ON `tbl_product`.`id` = `tbl_product_description`.`prod_id`";
+           $result = $this->conn->query($sql);
+        if ($result->num_rows>0) {
+            while ($rows=$result->fetch_assoc()) {
+                $this->rows[]=$rows;
+
+            }   
+            return json_encode($this->rows);
+        }
+        return "Error: " . $sql . "<br>" . $this->conn->error;
+            
+    }
+
+      //Product deletion
+      public function MultiProductsdelete($id)
+      {
+        $sql="DELETE `tbl_product`, `tbl_product_description`
+        FROM `tbl_product`
+        INNER JOIN `tbl_product_description` ON `tbl_product`.`id` = `tbl_product_description`.`prod_id`
+        WHERE `prod_id`='$id'";
+    if ($this->conn->query($sql) === true) {
+           return 1;
+    } else {
+          echo "Error: " . $sql . "<br>" . $this->conn->error;
+    }
+
 }
+    }
 
 
