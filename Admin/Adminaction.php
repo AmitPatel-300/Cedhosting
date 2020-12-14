@@ -88,7 +88,6 @@ case "AddMultiple":
 case "ShowProductsDesc":
     $data=$product->ShowProductsDesc();
     print_r($data);
-    
     break;
 
 case 'MultiProductsdelete':
@@ -102,6 +101,32 @@ case 'editProduct':
     $data= $product->editProduct($id);
     echo $data;
     break;  
+
+case 'updateProduct':
+    $id=$_POST['Id'];
+    $prodname=$_POST['Pname'];
+    $prodcat=$_POST['Catg'];
+    $plink=$_POST['Link'];
+    $wsp=$_POST['Web'];
+    $band=$_POST['Band'];
+    $domain=$_POST['Domain'];
+    $lang=$_POST['LSP'];
+    $mail=$_POST['Mail'];
+     $mprice=$_POST['Mon'];
+    $aprice=$_POST['Anu'];
+    $sku=$_POST['SKU'];
+    $prod_desc=array('web_space'=>$wsp,'band'=>$band,'domain'=>$domain,
+    'lang'=>$lang,'mail'=>$mail);
+    $prod_desc_encode=json_encode($prod_desc);
+    $data= $product->updateProduct($id, $prodcat, $prodname, $plink, $mprice, $aprice, $sku, $prod_desc_encode);
+    echo $data;
+    break; 
+
+case 'ShowParentCategory':
+    $data= $product->ShowParentCategory();
+    echo $data;
+    break;    
+
 }
 
 

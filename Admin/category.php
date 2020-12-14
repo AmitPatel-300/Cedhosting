@@ -156,14 +156,15 @@ $output=$product->parent_product();
 
  var html;
 $(document).ready(function(){  
-       html="<table id='tableshow'>";
+       html="<table id='tableshow' class='table-responsive'>";
        html+="<thead class='table table-striped'>";
        html+="<tr>";
        html+="<th>Category Name</th>";
+        html+="<th>Product Name</th>";
        html+="<th>Product Available</th>";
-       html+="<th>link</th>";
+       html+="<th>HTML</th>";
        html+="<th>Product launch date</th>";
-       html+="<th>Action</th>"
+       html+="<th colspan='2' class='text-center'>Action</th>"
        html+='</tr>';
        html+="</thead>";
         $.ajax({
@@ -176,6 +177,7 @@ $(document).ready(function(){
         success: function(data) {
             for(var i=0;i<data.length;i++){
                 html+='<tbody><tr>';
+                html+='<td class="cat'+i+'"></td>';
                 html+='<td>'+data[i]['prod_name']+'</td>';
                 if(data[i]['prod_available']==1){
                 html+='<td>Available</td>';
@@ -183,7 +185,7 @@ $(document).ready(function(){
                 else{
                     html+='<td>Not Available</td>';
                 }
-            html+='<td>'+data[i]['link']+'</td>';
+            html+='<td>'+data[i]['html']+'</td>';
             html+='<td>'+data[i]['prod_launch_date']+'</td>';
             html+='<td><input type="button"  data-toggle="modal" data-id='+data[i]['id']+' data-target="#editcategory" value="edit" class="btn btn-info edit"><input type="button" class="btn btn-danger del" data-id='+data[i]['id']+' value="delete"</td>';
             }
@@ -193,6 +195,21 @@ $(document).ready(function(){
             $('#tableshow').DataTable();
         }
     });
+
+    $.ajax({
+       url: 'Adminaction.php',
+        type: 'POST',
+        data: {
+            ACT:"ShowParentCategory",
+        },
+        dataType:'json',
+        success: function(data) {
+          for(var i=0;i<data.length;i++){
+           $('.cat'+i).html(data[i]['prod_name']);
+          }
+          
+      }
+  });
 
    
     $(document).on("click",'.del',function(){
@@ -260,7 +277,7 @@ $(document).ready(function(){
             <option value="1">Available</option>\
           </select>\
             <label class="text-muted h3"  for="exampleInputEmail1">link</label>\
-            <input type="text" class="form-control" id="plink" aria-describedby="emailHelp" value="'+data[i]['link']+'">\
+            <input type="text" class="form-control" id="plink" aria-describedby="emailHelp" value="'+data[i]['html']+'">\
             <div class="modal-footer">\
             <button type="button" class="btn btn-danger" data-dismiss="modal">cancel</button>\
             <button type="button" class="btn btn-success upcat" data-id='+data[i]['id']+'>Update</button>\

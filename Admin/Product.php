@@ -53,7 +53,7 @@ class Product
 
     public function parent_product() 
     {
-        $sql="Select * from `tbl_product` where `prod_parent_id`=1";
+        $sql="Select * from `tbl_product` where `prod_parent_id`=0";
          $result = $this->conn->query($sql);
         if ($result->num_rows>0) {
             while ($rows=$result->fetch_assoc()) {
@@ -65,12 +65,12 @@ class Product
 
     public function Addcategory($name, $ava) 
     {
-        $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `link`,`prod_available`,`prod_launch_date`)
-        VALUES ('1','$name', NULL, '$ava',NOW())";
+        $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `html`,`prod_available`,`prod_launch_date`)
+        VALUES ('1','$name',NULL, '$ava',NOW())";
         if ($this->conn->query($sql) === true ) {
             return 1;// return "New record created successfully";
           } else {
-            return 0;//echo "Error: " . $sql . "<br>" . $this->conn->error;
+            return "Error: " . $sql . "<br>" . $this->conn->error;
           }
     }
 
@@ -116,9 +116,11 @@ class Product
         return json_encode($this->rows);
     }
 
+
+
     public function updateCategory($id, $name, $ava, $link)
     {
-        $sql= "UPDATE `tbl_product` SET `prod_name`='$name' ,`prod_available`='$ava',`link`='$link' WHERE `id` ='$id'";
+        $sql= "UPDATE `tbl_product` SET `prod_name`='$name' ,`prod_available`='$ava',`html`='$link' WHERE `id` ='$id'";
         if ($this->conn->query($sql) === true) {
             return 1;
         } else {
@@ -128,9 +130,9 @@ class Product
 
     public function AddMultiple($prodid, $pname, $plink, $mprice, $aprice, $sku, $prod_desc_encode) 
     {
-        $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `link`,`prod_available`,`prod_launch_date`)
+        $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `html`,`prod_available`,`prod_launch_date`)
         VALUES ('$prodid','$pname','$plink','1',NOW())";
-        if ($this->conn->query($sql) === TRUE ) {
+        if ($this->conn->query($sql) === true ) {
             $last_id = $this->conn->insert_id;
             $sql = " INSERT INTO tbl_product_description(`prod_id`,`description`,`mon_price`,`annual_price`,`sku`)
             VALUES ('$last_id','$prod_desc_encode','$mprice','$aprice','$sku')";
@@ -168,13 +170,62 @@ class Product
         FROM `tbl_product`
         INNER JOIN `tbl_product_description` ON `tbl_product`.`id` = `tbl_product_description`.`prod_id`
         WHERE `prod_id`='$id'";
-    if ($this->conn->query($sql) === true) {
-           return 1;
-    } else {
-          echo "Error: " . $sql . "<br>" . $this->conn->error;
+        if ($this->conn->query($sql) === true) {
+            return 1;
+        } else {
+                echo "Error: " . $sql . "<br>" . $this->conn->error;
+        }
+
     }
 
-}
+ //edit Product
+    public function editProduct($id) 
+    {
+       
+        $sql="SELECT * FROM `tbl_product` INNER JOIN `tbl_product_description` ON `tbl_product`.`id` = `tbl_product_description`.`prod_id` WHERE `prod_id`='$id'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows>0) {
+            while ($rows=$result->fetch_assoc()) {
+                    $this->rows[]=$rows;
+
+            }   
+        }
+        return json_encode($this->rows);
     }
+
+    //show parent category
+
+    public function ShowParentCategory() 
+    {
+        $sql="SELECT a.prod_name FROM tbl_product a, tbl_product b 
+        WHERE a.id= b.prod_parent_id";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows>0) {
+            while ($rows=$result->fetch_assoc()) {
+                    $this->rows[]=$rows;
+
+            }   
+        }
+        return json_encode($this->rows);
+
+    }
+
+    public function updateProduct($id,$prodcat, $prodname, $plink, $mprice, $aprice, $sku ,$prod_desc_encode)
+    {
+        $sql= "UPDATE `tbl_product` SET `prod_name`='$prodname',`html`='$plink' WHERE `id` ='$id'";
+        if ($this->conn->query($sql) === true) {
+            $sql2="UPDATE `tbl_product_description` SET `description`='$prod_desc_encode',`mon_price`='$mprice',`annual_price`='$aprice',`sku`='$sku' WHERE `prod_id` ='$id'";
+            if ($this->conn->query($sql2) === true) {
+                return 1;
+            } else {
+                return "Error updating record: " . $this->conn->error;
+            }
+        } else {
+            return "Error updating record: " . $this->conn->error;
+        }
+    }
+
+
+}
 
 
