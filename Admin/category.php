@@ -131,7 +131,28 @@ $output=$product->parent_product();
       </div>
     </div>
   </div>
-
+  <div class="row">
+    <div class="col-xl-12 mt-2">
+      <div class="card">
+      <div class="table-responsive">
+      <table class="table align-item-center table-flush" id='tableshow'>
+       <thead class="thead-light">
+        <tr>
+       <th>Category Name</th>
+       <th>Product Name</th>
+       <th>Product Available</th>
+       <th>HTML</th>
+       <th>Product launch date</th>
+       <th colspan="2" class="text-center">Action</th>
+       </tr>
+       </thead>
+       <tbody id="showdata">
+       </tbody>
+       </table>
+      </div>
+    </div>
+    </div>
+  </div>
 <!-- Modal -->
 <div class="modal fade" id="editcategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -144,29 +165,14 @@ $output=$product->parent_product();
       </div>
       <div class="modal-body showeditcat">
       </div>
-    
     </div>
   </div>
 </div>
-  <div class="container-fluid">
-    <div id="showdata">
-   </div>
-  </div>
+  
   <script>
 
  var html;
 $(document).ready(function(){  
-       html="<table id='tableshow' class='table-responsive'>";
-       html+="<thead class='table table-striped'>";
-       html+="<tr>";
-       html+="<th>Category Name</th>";
-        html+="<th>Product Name</th>";
-       html+="<th>Product Available</th>";
-       html+="<th>HTML</th>";
-       html+="<th>Product launch date</th>";
-       html+="<th colspan='2' class='text-center'>Action</th>"
-       html+='</tr>';
-       html+="</thead>";
         $.ajax({
         url: 'Adminaction.php',
         type: 'POST',
@@ -176,7 +182,7 @@ $(document).ready(function(){
         dataType:'json',
         success: function(data) {
             for(var i=0;i<data.length;i++){
-                html+='<tbody><tr>';
+                html+='<tr>';
                 html+='<td class="cat'+i+'"></td>';
                 html+='<td>'+data[i]['prod_name']+'</td>';
                 if(data[i]['prod_available']==1){
@@ -187,12 +193,13 @@ $(document).ready(function(){
                 }
             html+='<td>'+data[i]['html']+'</td>';
             html+='<td>'+data[i]['prod_launch_date']+'</td>';
-            html+='<td><input type="button"  data-toggle="modal" data-id='+data[i]['id']+' data-target="#editcategory" value="edit" class="btn btn-info edit"><input type="button" class="btn btn-danger del" data-id='+data[i]['id']+' value="delete"</td>';
+            html+='<td><input type="button"  data-toggle="modal" data-id='+data[i]['id']+' data-target="#editcategory" value="edit" class="btn btn-info edit"></td><td><input type="button" class="btn btn-danger del" data-id='+data[i]['id']+' value="delete"</td>';
             }
-            html+='</tr></tbody>'
+            html+='</tr>';
             html+='</table>';
-            $('#showdata').html(html);
             $('#tableshow').DataTable();
+            $('#showdata').html(html);
+           
         }
     });
 

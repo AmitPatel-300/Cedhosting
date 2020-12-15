@@ -40,14 +40,18 @@ class Product
  
    
     public function hostinglist() {
-        $sql="Select * from tbl_product where `prod_parent_id`=1";
+        $sql="SELECT * from tbl_product where `prod_parent_id`=1";
             $result = $this->conn->query($sql);
-                if($result->num_rows>0) {
-                    while($rows=$result->fetch_assoc()){
+                if ($result->num_rows>0) {
+                    while ($rows=$result->fetch_assoc()) {
                         $this->rows[]=$rows;
                 }
+                $output  = json_encode($this->rows);
+            } else {
+                $output = "Error: " . $sql . "<br>" . $this->conn->error;
             }
-            return json_encode($this->rows);
+
+            return $output; 
     } 
 
 
@@ -78,7 +82,7 @@ class Product
 
     public function showcategory()
     {
-        $sql="Select * from tbl_product where `id`!=1";
+        $sql="Select * from tbl_product where `prod_parent_id`=1";
            $result = $this->conn->query($sql);
         if ($result->num_rows>0) {
             while ($rows=$result->fetch_assoc()) {
@@ -224,7 +228,66 @@ class Product
             return "Error updating record: " . $this->conn->error;
         }
     }
+    //parent product
 
+    public function ParentProduct()
+    {
+        $rows2=array();
+        $sql="SELECT `tbl_product`.*,`tbl_product_description`.* FROM tbl_product JOIN tbl_product_description ON `tbl_product`.`id` = `tbl_product_description`.`prod_id`";
+           $result = $this->conn->query($sql);
+        if ($result->num_rows>0) {
+            while ($rows=$result->fetch_assoc()) {
+                $id=$rows['prod_parent_id'];
+                $sql2="SELECT * from tbl_product where `id`=$id";
+                $result2=$this->conn->query($sql2);
+                if ($result2->num_rows>0) {
+                    while ($rows1=$result2->fetch_assoc()) {
+                          $rows2[]=$rows1;
+                    }
+                } else {
+                     return "Error: " . $sql . "<br>" . $this->conn->error;
+                }
+                
+            }
+            return json_encode($rows2);
+        } else {
+                return "Error: " . $sql . "<br>" . $this->conn->error;    
+        }    
+    }
+
+    //product details
+    public function getdetailpage($id)
+    {
+        $rows2=array();
+        $sql="SELECT `tbl_product`.*,`tbl_product_description`.* 
+        FROM tbl_product JOIN tbl_product_description ON 
+            `tbl_product`.`id` = `tbl_product_description`.`prod_id`
+            WHERE `tbl_product`.`prod_parent_id`='$id'";
+            $result = $this->conn->query($sql);
+        if ($result->num_rows>0) {
+            while ($rows=$result->fetch_assoc()) {
+                $rows2[]=$rows;
+
+            }   
+            return $rows2;
+        }
+        return "Error: " . $sql . "<br>" . $this->conn->error;
+    }
+
+    //prodparent
+    public function parentdetail($pid)
+    {
+        $rows1=array();
+        $sql="SELECT *  FROM `tbl_product` where `id`='$pid'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows>0) {
+            while ($rows=$result->fetch_assoc()) {
+                $rows1[]=$rows;
+            }   
+            return $rows1;
+        }
+        return "Error: " . $sql . "<br>" . $this->conn->error;
+    }
 
 }
 

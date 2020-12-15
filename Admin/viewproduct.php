@@ -74,11 +74,14 @@
     </div>
     
       <!-- Page content -->
-     
-    <div class="container-fluid mt-3">
-     <table id="tableshow" class="table-responsive">
-     <thead>
+      <div class="row">
+      <div class="col-xl-12 mt-2">
+      <div class="card">
+      <div class="table-responsive">
+      <table class="table align-item-center table-flush" id='tableshow'>
+       <thead class="thead-light">
         <tr>
+        <th>Parent Product Name</th>
         <th>product Name</th>
         <th>Html</th>
         <th>prod_available</th>
@@ -91,14 +94,16 @@
         <th>Monthprice*</th>
         <th>Annual price*</th>
         <th>SKU</th>
-        <th>Action</th>
+        <th colspan="2" class="text-center">Action</th>
         </tr>
      </thead>
      <tbody id="showproduct">
-
      </tbody>
      </table> 
-   </div>
+     </div>
+    </div>
+    </div>
+  </div>
 <!-- Modal -->
 <div class="modal fade" id="editproduct" tabindex="-1" role="dialog"
  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -116,7 +121,8 @@
             <label class="text-dark h5" for="exampleInputEmail1">
             Select Product category 
             <span class="text-danger ml-1">*</span></label>
-            <select class="custom-select" id="aval"></select>
+            <select class="custom-select" id="aval">
+            </select>
             <label class="text-dark h5"  for="exampleInputEmail1">Enter product Name
             </label>
             <input type="text" class="form-control" value="" id="prodname" 
@@ -154,7 +160,7 @@
             <input type="text" class="form-control" id="domain" 
             onfocusout="FreeDomain()" aria-describedby="emailHelp" value="">
             <div><small id="fd" class="text text-danger"></small></div>
-            <label class="text-dark h5" for="exampleInputEmail1">
+            <label class="text-dark h5" for="exam	2	PHPpleInputEmail1">
             Language/technology support</label>
             <input type="text" class="form-control" id="lsp" 
             onfocusout="LangSupp()" aria-describedby="emailHelp" value="">
@@ -180,7 +186,7 @@
 <script>
 function pname(){
 var regex=/(^([a-zA-Z]+\-[0-9]+$))|(^([a-zA-Z])+$)/;
-var regnumeric=/^[0-9_!"\-]+$/
+var regnumeric=/^[0-9_!"\-]+$/;
 var len;
 var pname=document.getElementById('prodname').value;
 len=pname.length;
@@ -247,10 +253,7 @@ else{
 // document.getElementById('SKU').innerHTML="must contain # or -";
 // document.getElementById('sku').focus();
 // return false;
-// }
-}
-
-function WEBSPACE(){
+// }2#@$$##$
 var regnum=/^[0-9]*\.?[0-9]*$/;
 var web=document.getElementById('webspace').value;
 if(web=="" || !(web).match(regnum)){
@@ -312,7 +315,7 @@ else{
   return true;
 }
 
-}
+  }
 
 function LangSupp(){
 var regex=/(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+$))|(^([a-zA-Z]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+\,[a-zA-Z]+$))|(^([a-zA-Z])+$)/;
@@ -333,6 +336,7 @@ else{
 <script>
 var html="";
 $(document).ready(function(){ 
+
   $(".updateprod").attr("disabled", true);
   
   $.ajax({
@@ -346,14 +350,20 @@ $(document).ready(function(){
     output='';
     for(var i=0;i<data.length;i++){
     var obj = jQuery.parseJSON(data[i]['description']);
-    output+='<tr><td>'+data[i]['prod_name']+'</td><td>'+data[i]['html']+'</td>\
-    <td>'+data[i]['prod_available']+'</td><td>'+data[i]['prod_launch_date']+'</td>\
+    output+='<tr><td class="cat'+i+'"></td><td>'+data[i]['prod_name']+'</td><td>'+data[i]['html']+'</td>';
+    if(data[i]['prod_available']==1){
+    output+='<td>Available</td>';
+    }
+    else{
+    output+='<td>Not Available</td>';
+    }
+    output+='</td><td>'+data[i]['prod_launch_date']+'</td>\
     <td>'+obj.web_space+'</td><td>'+obj.band+'</td><td>'+obj.domain+'</td>\
     <td>'+obj.lang+'</td><td>'+obj.mail+'</td><td>'+data[i]['mon_price']+'</td>\
     <td>'+data[i]['annual_price']+'</td><td>'+data[i]['sku']+'</td><td>\
       <input type="button"  data-toggle="modal" \
       data-id='+data[i]['prod_id']+' data-target="#editproduct"\
-       class="btn btn-info edit" value="edit"></td><td><input type="button" value="delete"  \data-id='+data[i]['prod_id']+' class="btn btn-danger delete"></td></tr>';
+      class="btn btn-info edit" value="edit"></td><td><input type="button" value="delete" data-id='+data[i]['prod_id']+' class="btn btn-danger delete"></td></tr>';
       }
      $("#tableshow").DataTable();
      $('#showproduct').html(output);
@@ -371,15 +381,32 @@ $(document).ready(function(){
       ACT:"hostinglist"
     },
     success : function(data) {
-      html='';
+      html='<option>Please Select</option>';
       for(var i=0;i<data.length;i++){
-        html+='<option value="'+data[i]['prod_name']+'">\
+        html+='<option value="'+data[i]['id']+'">\
         '+data[i]['prod_name']+'</option>';
       }
       $("#hosting, #aval").html(html);
 
     }
   });
+
+  //Parent Product
+  $.ajax({
+       url: 'Adminaction.php',
+        type: 'POST',
+        data: {
+            ACT:"ParentProduct",
+        },
+        dataType:'json',
+        success: function(data) {
+          for(var i=0;i<data.length;i++){
+           $('.cat'+i).html(data[i]['prod_name']);
+          }
+          
+      }
+  });
+
   //editproduct
 
   $(document).on("click",'.edit',function(){
@@ -395,6 +422,7 @@ $(document).ready(function(){
         dataType:'json',
         success: function(data) {
           var obj = jQuery.parseJSON(data[0]['description']);
+          $('#aval').val(data[0]['prod_parent_id']);
           $('#prodname').val(data[0]['prod_name']);
           $('#prod_link').val(data[0]['html']);
           $('#webspace').val(obj.web_space);
@@ -448,7 +476,6 @@ $(document).ready(function(){
 //delete product
   $(document).on("click",'.delete',function(){
         var id=$(this).data('id');
-        alert(id);
         var x='MultiProductsdelete';
         var con=confirm("Are you sure want do you want to delete");
         if(con==1){
@@ -473,5 +500,4 @@ $(document).ready(function(){
 </script>
 </div>
 </div>
- <?php include 'footer.php'?>
-
+<?php require 'footer.php'?>

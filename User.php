@@ -1,9 +1,41 @@
 <?php
-require_once 'header.php';
+/**
+ * Template File Doc Comment
+ * 
+ * PHP version 7
+ *
+ * @category Template_Class
+ * @package  Template_Class
+ * @author   Author <author@domain.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://localhost/
+ */
+
+/**
+ * Template Class Doc Comment
+ * 
+ * Template Class
+ * 
+ * @category Template_Class
+ * @package  Template_Class
+ * @author   Author <author@domain.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     http://localhost/
+ */
+
+
+// require_once 'header.php';
 require_once 'Admin/Dbcon.php';
-class User{
+if(!isset($_SESSION)) {
+    session_start();
+}
+
+
+class User
+{
     public $conn;
-    public function __construct(){
+    public function __construct()
+    {
         $con=new Dbcon(); 
         $this->conn=$con->connect();
     }
@@ -33,14 +65,16 @@ class User{
          
     }
 
-    public function update($email, $OTP)
-    {
-        $sql="UPDATE `tbl_user` SET `active`=1  WHERE `email` ='$email'";
-        if ($this->conn->query($sql) === true) {
-            echo '<script>alert("Verification Successful You can login")</script>';
-            header('location:login.php');
-        } else {
+    public function update($email, $otp)
+    {   
+        if ($_SESSION['OTP']==$otp) {
+            
+            $sql="UPDATE `tbl_user` SET `active`=1  WHERE `email` ='$email'";
+            if ($this->conn->query($sql) === true) {
+                return 1;
+            } else {
                 return "Error updating record: " . $this->conn->error;
+            }
         }
     }
 

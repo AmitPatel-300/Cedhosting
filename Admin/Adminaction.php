@@ -125,8 +125,12 @@ case 'updateProduct':
 case 'ShowParentCategory':
     $data= $product->ShowParentCategory();
     echo $data;
-    break;    
-
+    break;  
+    
+case 'ParentProduct':
+    $data= $product->ParentProduct();
+    echo $data;
+    break;  
 }
 
 

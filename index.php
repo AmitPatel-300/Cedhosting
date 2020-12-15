@@ -118,7 +118,7 @@ at any time. That’s how we set ourselves apart.</p>
 </div>
 <div class="clearfix"></div>
 </div>
-<div class="col-md-4 brilliant-grid">
+    <div class="col-md-4 brilliant-grid">
 <div class="brilliant-left">
 <i class="glyphicon glyphicon-link" aria-hidden="true"></i>
 </div>
@@ -240,7 +240,7 @@ at any time. That’s how we set ourselves apart.</p>
 <div class="container">
 <h3>Check our recent posts</h3>
 <h5>We like to keep everyone updated</h5>
-<div class="post-grids">
+<div class="post-grids">    
 <div class="col-md-4 post-grid">
 <a href="single.html" class="mask"><img src="images/p1.jpg" class="img-responsive zoom-img" alt="/"></a>
 <a href="single.html"><h4>Vestibulum ipsums eros</h4></a>

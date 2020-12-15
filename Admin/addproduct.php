@@ -265,11 +265,7 @@ $(document).ready(function(){
     domain=$('#domain').val().trim();
     lang=$('#lang').val().trim();
     mail=$('#mail').val().trim();
-    if(prodid=="" || prodname=="" || prodlink=="" || monthprice==""
-    || annualprice=="" || sku=="" || sku == "" || webspace =="" || band=="" 
-    || domain =="" && lang=="" && mail=="" ){
-      alert("Please fill all the field");
-    }
+   
     x="AddMultiple";
     $.ajax({
     url :'Adminaction.php',
@@ -377,7 +373,7 @@ skulen=0;
 return false;
 }
 else{
-  document.getElementById('sku').innerHTML="";
+  document.getElementById('SKU').innerHTML="";
   skulen=1;
   if((namelen+monlen+annulen+weblen+domlen+maillen+bandlen+langen+skulen)>=9){
   $(".btn").attr("disabled", false);

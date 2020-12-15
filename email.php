@@ -70,7 +70,8 @@ try {
 
     $mailer->isHTML(true);
     $mailer->Subject = 'PHPMailer Test';
-    $mailer->Body = 'Hello ."'.$name.'" .Welcome to cedhosting Your OPT is:"'.$otp.'"';
+    $mailer->Body = 'Hello ."'.$name.'" .Welcome to cedhosting Your OTP 
+    is:"'.$otp.'"';
 
     $mailer->send();
     $mailer->ClearAllRecipients();

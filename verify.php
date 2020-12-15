@@ -24,25 +24,12 @@
  */
 ?>
 
-<?php require_once 'User.php';
 
-if (isset($_SESSION['verify'])) {
-     $email=$_SESSION['verify']['email'];
-     $name=$_SESSION['verify']['name'];
-}
-$otp=$_SESSION['OTP'];
-echo $otp;
-$User=new User();
-if (isset($_POST['verify'])) {
-    $email=isset($_POST['email'])?$_POST['email']:'';
-    $OTP=isset($_POST['OTP'])?$_POST['OTP']:'';
-    $User->update($email, $OTP);
-}
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Planet Hosting a Hosting Category Flat Bootstrap Responsive Website Template | Login :: w3layouts</title>
+<title>Planet Hosting a Hosting Category Flat Bootstrap Responsive 
+Website Template | Login :: w3layouts</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,53 +47,82 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!---fonts-->
 <!--script-->
 <link rel="stylesheet" href="css/swipebox.css">
-			<script src="js/jquery.swipebox.min.js"></script> 
-			    <script type="text/javascript">
-					jQuery(function($) {
-						$(".swipebox").swipebox();
-					});
-				</script>
+<script src="js/jquery.swipebox.min.js"></script> 
+<script type="text/javascript">
+jQuery(function($) {
+$(".swipebox").swipebox();
+});
+</script>
 <!--script-->
 </head>
 <body>
-	<!---header--->
-		<?php include_once 'header.php'?>
-	<!---header--->
-		<!---login--->
-			<div class="content">
-				<div class="main-1">
-					<div class="container">
-						<div class="login-page ">
-							<div class="account_grid">
-								
-								<div class="col-md-6 login-right ">
-									<h3>Verification Page</h3>
-									<p>please verify that it's were you</p>
-									<form action="" method="POST">
-									  <div>
-										<span>Your email<label>*</label></span>
-										<input type="text" name="email" value="<?php echo $email ?>" required> 
-									  </div>
-									  <div>
-										<span>Enter OTP<label>*</label></span>
-										<input type="text" name="OTP" required> 
-									  </div>
-                                      <div>
-                                      <input type="submit" value="Submit" name="verify">
-                                        <a href="#">Resend Email Again</a> 
-									  </div>
-                                      
-									</form>
-								</div>	
-								<div class="clearfix"> </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+<!---header--->
+<?php include_once 'header.php'?>
+<?php
+if (isset($_SESSION['verify'])) {
+     $email=$_SESSION['verify']['email'];
+     $name=$_SESSION['verify']['name'];
+}
+?>
+<!---header--->
+<!---login--->
+<div class="content">
+<div class="main-1">
+<div class="container">
+<div class="login-page ">
+<div class="account_grid">
+
+<div class="col-md-6 login-right ">
+<h3>Verification Page</h3>
+<p>please verify that it's were you</p>
+<form action="" method="POST">
+<div>
+<span>Your email<label>*</label></span>
+<input type="text" name="email" id="email" value="<?php echo $email ?>" required> 
+</div>
+<div>
+<span>Enter OTP<label>*</label></span>
+<input type="number" min="1" name="OTP" id="otp" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  required> 
+</div>
+<div>
+<input type="button" value="Submit" id="submit" name="verify">
+<a href="#">Resend Email Again</a> 
+</div>
+
+</form>
+</div>	
+<div class="clearfix"> </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <!-- login -->
 <!---footer--->
 <?php require 'footer.php';?>
 <!---footer--->
 </body>
 </html>
+<script>
+$(document).ready(function(){
+$("#submit").click(function(){
+// alert("ok");
+ email=$("#email").val();
+ otp=$("#otp").val();
+ $.ajax({
+   url: 'Ajaxaction.php',
+   type: 'POST',
+   data: {
+   action:"update",Email:email,
+   OTP:otp
+},
+success: function(data) {
+if(data==1){
+alert("Email verified Successfully");
+window.location.href='login.php';
+}
+}
+ });
+});
+});
+</script>
