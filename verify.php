@@ -82,11 +82,11 @@ if (isset($_SESSION['verify'])) {
 </div>
 <div>
 <span>Enter OTP<label>*</label></span>
-<input type="number" min="1" name="OTP" id="otp" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  required> 
+<input type="number" min="1" name="OTP" id="otp" onkeypress="return event.charCode >= 48 && event.charCode <= 57"  > 
 </div>
 <div>
 <input type="button" value="Submit" id="submit" name="verify">
-<a href="#">Resend Email Again</a> 
+<a href="email.php">Resend Email Again</a> 
 </div>
 
 </form>
@@ -109,6 +109,13 @@ $("#submit").click(function(){
 // alert("ok");
  email=$("#email").val();
  otp=$("#otp").val();
+ if(otp==""){
+      alert("please fill OTP");
+      $("#otp").focus();
+      return false;
+
+ }
+
  $.ajax({
    url: 'Ajaxaction.php',
    type: 'POST',
@@ -118,8 +125,11 @@ $("#submit").click(function(){
 },
 success: function(data) {
 if(data==1){
-alert("Email verified Successfully");
+alert("Email verified Successfully You can now login");
 window.location.href='login.php';
+}
+if(data==0){
+alert("Incorrect OTP");
 }
 }
  });

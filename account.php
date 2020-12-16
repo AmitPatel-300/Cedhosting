@@ -107,7 +107,7 @@
     </div>
     <div>
     <span id="Sa">Security Answer<label>*</label></span>
-    <input type="text" placeholder="please answer" id="SA"  onkeypress="return event.charCode >= 65  && event.charCode <= 122 " name="sa"> 
+    <input type="text" placeholder="please answer" id="SA"  onkeypress="return event.charCode >=48  && event.charCode <= 122 " name="sa"> 
     </div>
     <div class="clearfix"> </div>
     <a class="news-letter" href="#">
@@ -118,11 +118,11 @@
     <h3>login information</h3>
     <div>
     <span>Password<label>*</label></span>
-    <input type="password" id="PASS" placeholder="password contain atleast 1 uppercase,lowercase,numerica & special character" name="pass" >
+    <input type="password" id="PASS" onkeypress="return AvoidSpace(event)" placeholder="password contain atleast 1 uppercase,lowercase,numerica & special character" name="pass" >
     </div>
     <div>
     <span>Confirm Password<label>*</label></span>
-    <input type="password" id="RPASS"  placeholder="password contain atleast 1 uppercase,lowercase,numerica & special character" name="rpass">
+    <input type="password" id="RPASS" onkeypress="return AvoidSpace(event)" placeholder="password contain atleast 1 uppercase,lowercase,numerica & special character" name="rpass">
     </div>
     </div>
 
@@ -143,5 +143,9 @@
     <!---footer--->
     <?php include 'footer.php'?>
     <!---footer--->
-    </body>
-    </html>
+  <script>
+      function AvoidSpace(event) {
+    var k = event ? event.which : window.event.keyCode;
+    if (k == 32) return false;
+}
+  </script>

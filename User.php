@@ -69,12 +69,14 @@ class User
     {   
         if ($_SESSION['OTP']==$otp) {
             
-            $sql="UPDATE `tbl_user` SET `active`=1  WHERE `email` ='$email'";
+            $sql="UPDATE `tbl_user` SET `active`=1 and `email_approved`=1  WHERE `email` ='$email'";
             if ($this->conn->query($sql) === true) {
                 return 1;
             } else {
                 return "Error updating record: " . $this->conn->error;
             }
+        } else {
+            return 0;
         }
     }
 

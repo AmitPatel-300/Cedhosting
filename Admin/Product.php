@@ -1,17 +1,5 @@
 <?php
 /**
- * Template File Doc Comment
- * 
- * PHP version 7
- *
- * @category Template_Class
- * @package  Template_Class
- * @author   Author <author@domain.com>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://localhost/
- */
-
-/**
  * Template Class Doc Comment
  * 
  * Template Class
@@ -25,22 +13,27 @@
 ?>
 <?php
 require_once 'Dbcon.php';
-class Product
+  class Product
     {
     public $conn;
     public $name;
     public $rows;
-    
+    /**
+     * Function for dbcon
+     */
     public function __construct()
     {
         $con=new Dbcon(); 
         $this->conn=$con->connect();
     }
-
- 
-   
-    public function hostinglist() {
-        $sql="SELECT * from tbl_product where `prod_parent_id`=1";
+    /**
+     * Function for dbcon
+     * 
+     * @return hostinglist()
+     */
+    public function hostinglist() 
+    {
+        $sql="SELECT * from tbl_product where `prod_parent_id`=1 and `prod_available`=1" ;
             $result = $this->conn->query($sql);
                 if ($result->num_rows>0) {
                     while ($rows=$result->fetch_assoc()) {
@@ -54,7 +47,11 @@ class Product
             return $output; 
     } 
 
-
+    /**
+     * Function for dbcon
+     * 
+     * @return hostinglist()
+     */
     public function parent_product() 
     {
         $sql="Select * from `tbl_product` where `prod_parent_id`=0";
@@ -66,20 +63,37 @@ class Product
         }
         return $name;
     }
-
+    /**
+     * Function for dbcon
+     * 
+     * @param name $name comment
+     * @param ava  $ava  comment
+     * 
+     * @return hostinglist()
+     */
     public function Addcategory($name, $ava) 
     {
-        $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `html`,`prod_available`,`prod_launch_date`)
-        VALUES ('1','$name',NULL, '$ava',NOW())";
-        if ($this->conn->query($sql) === true ) {
-            return 1;// return "New record created successfully";
-          } else {
-            return "Error: " . $sql . "<br>" . $this->conn->error;
-          }
+        $sql="Select * from tbl_product where `prod_name`='$name'";
+        $result=$this->conn->query($sql);
+        $this->count=$result->num_rows;
+        if ($this->count>0) {
+            return 0;
+        } else {
+            $sql ="INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `html`,`prod_available`,`prod_launch_date`)
+            VALUES ('1','$name',NULL, '$ava',NOW())";
+            if ($this->conn->query($sql) === true ) {
+                return 1;// return "New record created successfully";
+            } else {
+                return "Error: " . $sql . "<br>" . $this->conn->error;
+            }
+        }
     }
 
-
-
+    /**
+     * Function for dbcon
+     * 
+     * @return hostinglist()
+     */
     public function showcategory()
     {
         $sql="Select * from tbl_product where `prod_parent_id`=1";
@@ -93,7 +107,13 @@ class Product
           return json_encode($this->rows);
     }
     
-     //category deletion
+    /**
+     * Function for dbcon
+     * 
+     * @param id $id comment 
+     * 
+     * @return deleteCategory()
+     */
     public function deleteCategory($id) 
     {
         $sql="Delete  from `tbl_product` where id='$id'";
@@ -104,7 +124,13 @@ class Product
         }
     }
 
-   //edit category
+    /**
+     * Function for dbcon
+     * 
+     * @param id $id comment 
+     * 
+     * @return editCategory()
+     */
     public function editCategory($id) 
     {
        
@@ -120,8 +146,16 @@ class Product
         return json_encode($this->rows);
     }
 
-
-
+    /**
+     * Function for dbcon
+     * 
+     * @param id   $id   comment
+     * @param name $name comment
+     * @param ava  $ava  comment
+     * @param link $link comment
+     * 
+     * @return updateCategory()
+     */
     public function updateCategory($id, $name, $ava, $link)
     {
         $sql= "UPDATE `tbl_product` SET `prod_name`='$name' ,`prod_available`='$ava',`html`='$link' WHERE `id` ='$id'";
@@ -131,7 +165,18 @@ class Product
                 return "Error updating record: " . $this->conn->error;
         }
     }
-
+    
+    /**
+     * Function for dbcon
+     * 
+     * @param prodid $prodid comment
+     * @param pname  $pname  comment 
+     * @param plink  $plink  comment
+     * @param mprice $mprice comment
+     * @param aprice $aprice comment 
+     * 
+     * @return deleteCategory()
+     */
     public function AddMultiple($prodid, $pname, $plink, $mprice, $aprice, $sku, $prod_desc_encode) 
     {
         $sql = " INSERT INTO tbl_product(`prod_parent_id`,`prod_name`, `html`,`prod_available`,`prod_launch_date`)
@@ -201,8 +246,7 @@ class Product
 
     public function ShowParentCategory() 
     {
-        $sql="SELECT a.prod_name FROM tbl_product a, tbl_product b 
-        WHERE a.id= b.prod_parent_id";
+        $sql="SELECT * from tbl_product where `prod_parent_id`=1";
         $result = $this->conn->query($sql);
         if ($result->num_rows>0) {
             while ($rows=$result->fetch_assoc()) {
@@ -216,7 +260,7 @@ class Product
 
     public function updateProduct($id,$prodcat, $prodname, $plink, $mprice, $aprice, $sku ,$prod_desc_encode)
     {
-        $sql= "UPDATE `tbl_product` SET `prod_name`='$prodname',`html`='$plink' WHERE `id` ='$id'";
+        $sql= "UPDATE `tbl_product` SET `prod_parent_id`='$prodcat' ,`prod_name`='$prodname',`html`='$plink' WHERE `id` ='$id'";
         if ($this->conn->query($sql) === true) {
             $sql2="UPDATE `tbl_product_description` SET `description`='$prod_desc_encode',`mon_price`='$mprice',`annual_price`='$aprice',`sku`='$sku' WHERE `prod_id` ='$id'";
             if ($this->conn->query($sql2) === true) {

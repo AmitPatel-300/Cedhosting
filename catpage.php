@@ -31,13 +31,12 @@ if (isset($_REQUEST['id'])) {
     $id=$_REQUEST['id'];   
     $output=$product->getdetailpage($id);
     $object=json_decode($output[0]['description']);
-  //  print_r($output);
+    //print_r($output);
     $pid=$output[0]['prod_parent_id'];
     $output2=$product->parentdetail($pid);
-  //  print_r($output2);
-}
-else {
-header ('location:index.php');
+     //  print_r($output2);
+} else {
+      header('location:index.php');
 }
 
 ?>
@@ -84,32 +83,32 @@ header ('location:index.php');
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-prices">
-                            <div class="container">
-                                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-                                    <ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
-                                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">IN Hosting</a></li>
-                                        <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">US Hosting</a></li>
-                                        </ul>
-                                    <div id="myTabContent" class="tab-content">
-                                        <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-                                            <div class="linux-prices">
-                                            <?php
-                                            foreach ($output as $rows) :
-                                                $decodedesc = json_decode($rows['description']);
-                                                $webspace = $decodedesc->{'web_space'};
-                                                $domain = $decodedesc->{'domain'};
-                                                $mail = $decodedesc->{'mail'};
-                                                $lang = $decodedesc->{'lang'};
-                                                $band = $decodedesc->{'band'};
-                                            ?>
+                <div class="tab-prices">
+                    <div class="container">
+                        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab" class="nav nav-tabs left-tab" role="tablist">
+                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">IN Hosting</a></li>
+                                <li role="presentation"><a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">US Hosting</a></li>
+                                </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+                                    <div class="linux-prices">
+                                    <?php
+                                    foreach ($output as $rows) :
+                                        $decodedesc = json_decode($rows['description']);
+                                        $webspace = $decodedesc->{'web_space'};
+                                        $domain = $decodedesc->{'domain'};
+                                        $mail = $decodedesc->{'mail'};
+                                        $lang = $decodedesc->{'lang'};
+                                        $band = $decodedesc->{'band'};
+                                    ?>
                                                 <div class="col-md-3 linux-price">
                                                     <div class="linux-top">
                                                     <h4>Standard</h4>
                                                     </div>
                                                     <div class="linux-bottom">
                                                         <h5>$<?php echo  $output[0]['mon_price'] ?><span class="month"> per month</span></h5>
-                                                        <h6> <?php echo $object->domain?> Domain</h6>
+                                                        <h6> <?php echo $domain?> Domain</h6>
                                                         <ul>
                                                         <li><strong>Web Space</strong> <?php echo $webspace ?></li>
                                                         <li><strong>Free Domain</strong> <?php echo $domain ?></li>

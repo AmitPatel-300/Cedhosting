@@ -128,9 +128,18 @@
             <input type="text" class="form-control" value="" id="prodname" 
             onfocusout="pname()" aria-describedby="emailHelp">
             <div><small id="pn" class="text text-danger"></small></div>
-            <label class="text-dark h5"  for="exampleInputEmail1">Page Url</label>
-            <input type="text" class="form-control" value="" id="prod_link"
-             aria-describedby="emailHelp">
+            <label class="text-dark h5"  for="exampleInputEmail1">HTML</label>
+             <div>
+                <div class="justify-content-md-center">
+                  <div class="col-md-12 col-lg-12">
+                    <h1 class="h3 mb-2 text-muted"></h1>
+                    <label>Enter html content here</label>
+                    <div class="form-group">
+                        <textarea id="editor"></textarea>
+                    </div>          
+                </div>
+              </div>
+            </div>
              <label class="text-dark h5" for="exampleInputEmail1">
             Month Price</label>
             <input type="text" class="form-control" id="month" maxlength="15" 
@@ -186,7 +195,7 @@
 <script>
 function pname(){
 var regex=/(^([a-zA-Z]+\-[0-9]+$))|(^([a-zA-Z])+$)/;
-var regnumeric=/^[0-9_!"\-]+$/;
+var regnumeric=/^[0-9_!"\-_]+$/;
 var len;
 var pname=document.getElementById('prodname').value;
 len=pname.length;
@@ -235,7 +244,7 @@ else{
 
 function SKU(){
 var skureg=/^[A-Za-z0-9_!"]+$/;
-var skuregular=/[!@$%^&*(),.?":{}|<>]/g;
+var skuregular=/[!@$%^&*(),_.?":{}|<>]/g;
 sku=document.getElementById('sku').value;
 if(sku=="" || (sku).match(skuregular)){
 document.getElementById('sk').innerHTML="special character # and - are allowed";
@@ -318,7 +327,7 @@ else{
   }
 
 function LangSupp(){
-var regex=/(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+$))|(^([a-zA-Z]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+\,[a-zA-Z]+$))|(^([a-zA-Z])+$)/;
+var regex=/(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+[0-9]+\, [a-zA-Z]+$))|(^([a-zA-Z]+\, [a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+\, [a-zA-Z]+$))|(^([a-zA-Z])+$)/;
 var regnumeric=/^[0-9_!"\-]+$/;
 var lang=document.getElementById('lsp').value;
 if(lang=="" || !(lang).match(regex)){
@@ -336,9 +345,6 @@ else{
 <script>
 var html="";
 $(document).ready(function(){ 
-
-  $(".updateprod").attr("disabled", true);
-  
   $.ajax({
     url :'Adminaction.php',
     type : 'post',

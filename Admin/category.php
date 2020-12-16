@@ -23,9 +23,9 @@
  * @link     http://localhost/
  */
 ?>
-<?php include_once 'Product.php'?>
-<?php include 'header.php'?>
-<?php include_once 'Dbcon.php'?>
+<?php require_once 'Product.php'?>
+<?php require 'header.php'?>
+<?php require_once 'Dbcon.php'?>
 <?php
 $product=new Product();
 $output=$product->parent_product(); 
@@ -76,7 +76,7 @@ $output=$product->parent_product();
       <!-- Page content -->
       <div class="container mt--8 pb-1 ">
       <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-7 mt-4 ml-4">
+        <div class="col-lg-7 col-md-7 mt-4 ml-4">
           <div class="card bg-secondary border-0 mb-0">
             <div class="card-header bg-transparent pb-5">
               <div class="text-muted text-center mt-2 mb-3"><small>Add Category
@@ -89,8 +89,9 @@ $output=$product->parent_product();
             <div class="input-group-prepend ">
                 <span class="input-group-text"><i class="ni ni-email-83 "></i></span>
             </div>
-                    <input class="form-control pl-2" value="<?php echo $output?>" disabled type="text">
-                  </div>
+              <input class="form-control pl-2" value="<?php echo $output?>" 
+              disabled type="text">
+            </div>
                 </div>
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
@@ -98,25 +99,29 @@ $output=$product->parent_product();
                     <span class="input-group-text">
                         <i class="ni ni-lock-circle-open"></i></span>
                 </div>
-                    <input class="form-control pl-2" placeholder="product name" id="pn" type="text">
+                    <input class="form-control pl-2" placeholder="Category name" id="pn" type="text">
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="input-group input-group-merge input-group-alternative">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="ni ni-lock-circle-open"></i></span>
+              <div>
+                <div class="justify-content-md-center">
+                  <div class="col-md-12 col-lg-12">
+                    <h1 class="h3 mb-4 text-muted">Html</h1>
+                    <label>Enter html content here</label>
+                    <div class="form-group">
+                        <textarea id="editor"></textarea>
+                    </div>          
                 </div>
-                    <input class="form-control pl-2" placeholder="link url" id="link" type="text">
-                  </div>
+              </div>
+            </div>
                 </div>
                 <div class="form-group">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group ">
                   <select class="custom-select" id="aval" id="inputGroupSelect02">
-                  <option val="ava">Availability</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
+                  <option value="ava">please select</option>
+                  <option value="1">Available</option>
+                  <option value="0">Not Available</option>
                   </select>
                   </div>
                 </div>
@@ -138,8 +143,8 @@ $output=$product->parent_product();
       <table class="table align-item-center table-flush" id='tableshow'>
        <thead class="thead-light">
         <tr>
+       <th>Category Parent Name</th>
        <th>Category Name</th>
-       <th>Product Name</th>
        <th>Product Available</th>
        <th>HTML</th>
        <th>Product launch date</th>
@@ -198,8 +203,7 @@ $(document).ready(function(){
             html+='</tr>';
             html+='</table>';
             $('#tableshow').DataTable();
-            $('#showdata').html(html);
-           
+            $('#showdata').html(html);  
         }
     });
 
@@ -212,7 +216,7 @@ $(document).ready(function(){
         dataType:'json',
         success: function(data) {
           for(var i=0;i<data.length;i++){
-           $('.cat'+i).html(data[i]['prod_name']);
+           $('.cat'+i).html("Hosting");
           }
           
       }
@@ -243,8 +247,19 @@ $(document).ready(function(){
     });
 
   $('#category').click(function(){
+      var html=$('textarea#editor').text();
+      alert(html);
       var name=$('#pn').val();
       var available=$('#aval').val();
+      if(name==""){
+        alert("Please enter product name");
+        $('#pn').focus();
+        return false;
+      }
+      if(available=="ava"){
+        alert("please select availability");
+        $('#aval').focus();
+      }
       var act="Addcategory";
       $.ajax({
             url: 'Adminaction.php',
@@ -259,6 +274,10 @@ $(document).ready(function(){
                   alert("added successfully");
                   window.location.href='category.php';
               }
+              
+            if(data==0){
+              alert("Category already exist");
+            }
             }
         });
   });
@@ -319,7 +338,6 @@ $(document).ready(function(){
         }
   });
 });
-
 });
   </script>
-<?php include 'footer.php'?>
+<?php require 'footer.php'?>

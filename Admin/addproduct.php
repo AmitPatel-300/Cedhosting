@@ -300,10 +300,11 @@ $(document).ready(function(){
   var bandlen=0;
   var langen=0;
   var skulen=0;
-
+  var month;
+  var annual;
 function pname(){
 var regex=/(^([a-zA-Z]+\-[0-9]+$))|(^([a-zA-Z])+$)/;
-var regnumeric=/^[0-9_!"\-]+$/
+var regnumeric=/^[0-9_!"\_]+$/
 var len;
 var pname=document.getElementById('prodname').value;
 len=pname.length;
@@ -326,11 +327,17 @@ else{
 
 function monthprice(){
   var regnum=/^[0-9]*\.?[0-9]*$/;
-  var month=document.getElementById('mprice').value;
+  month=document.getElementById('mprice').value;
 if(month=="" || !(month).match(regnum)){
  document.getElementById('mp').innerHTML="numeric and special character ('.') only";
   document.getElementById('mprice').focus();
   monlen=0;
+  return false;
+}
+if(Number(month)>Number(annual)){
+  document.getElementById('mp').innerHTML="Month price cannot be greater than annual price";
+  document.getElementById('mprice').focus();
+  annulen=0;
   return false;
 }
 else{
@@ -345,7 +352,13 @@ else{
 
 function annualprice(){
 var regnum=/^[0-9]*\.?[0-9]*$/;
-var annual=document.getElementById('aprice').value;
+ annual=document.getElementById('aprice').value;
+if(Number(annual)<Number(month)){
+  document.getElementById('ap').innerHTML="Annual must be greater than month price";
+  document.getElementById('aprice').focus();
+  annulen=0;
+  return false;
+}
 if(annual=="" ||!(annual.match(regnum))){
 document.getElementById('ap').innerHTML="numeric and special character ('.') only";
 document.getElementById('aprice').focus();
@@ -364,7 +377,7 @@ else{
 
 function SKU(){
 var skureg=/^[A-Za-z0-9_!"]+$/;
-var skuregular=/[!@$%^&*(),.?":{}|<>]/g;
+var skuregular=/[!@$%^&*(),_.?":{}|<>]/g;
 sku=document.getElementById('sku').value;
 if(sku=="" || (sku).match(skuregular)){
 document.getElementById('SKU').innerHTML="special character # and - are allowed";
@@ -380,12 +393,6 @@ else{
   }
   return true;
 }
-
-// if(sku.match(skureg)){
-// document.getElementById('SKU').innerHTML="must contain # or -";
-// document.getElementById('sku').focus();
-// return false;
-// }
 }
 
 function WEBSPACE(){
@@ -469,13 +476,22 @@ else{
 }
 
 function LangSupp(){
-var regex=/(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+[0-9]+\,[a-zA-Z]+$))|(^([a-zA-Z]+\,[a-zA-Z]+[0-9]+$))|(^([a-zA-Z]+\,[a-zA-Z]+$))|(^([a-zA-Z])+$)/;
+var regex=/^((?![0-9]+$)[a-zA-Z0-9]+\,?\s?)+$/;
 var regnumeric=/^[0-9_!"\-]+$/;
 var lang=document.getElementById('lang').value;
+length=lang.length;
+if(lang.charAt(length-1)==","){
+  alert("Please enter  name after comma");
+  document.getElementById('lang').focus();
+  langen=0;
+  return false;
+}
 if(lang=="" || !(lang).match(regex)){
 document.getElementById('lts').innerHTML="alphanumeric, alphabetic and special character (,) only";
 document.getElementById('lang').focus();
-langen=0;
+if(lang.charAt(lang.length-1)==","){
+  document.getElementById('lts').innerHTML="please enter name after comma";
+}
 return false;
 }
 else{

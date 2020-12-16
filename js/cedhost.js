@@ -2,10 +2,12 @@ var name,email,mob,pass,rpass,sq,sa;
 
 function validateForm(){
     var regexname = /^([a-zA-Z]+\s?)*$/;
-    var regexmob =/^(|[0]){0,1}([1-9]{1})([0-9]{9})$/;
+    var regexmob = ("(0/91)?[7-9][0-9]{9}"); 
     var regexemail =  /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
-    var regexpass =/^(?=.*\d)(?=.*[-+_!@#$%^&*., ?])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
+    var regexpass =/^(?=.*\d)(?=.*[-+_!@#$%^&*.,?])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
     var name,email,mob,pass,rpass;
+    var regnumeric=/^[0-9_!"\-]+$/
+    var security = /^([a-zA-Z0-9]+\s?)*$/;
 
     name=document.getElementById('NAME').value.trim();
     email=document.getElementById('EMAIL').value.trim();
@@ -44,6 +46,13 @@ function validateForm(){
       return false;
    }
 
+   if(sa.match(regnumeric)){
+      alert("Only numeric not allowed");
+      document.getElementById('SA').focus();
+      return false;
+   }
+  
+
    if(pass==""){
       alert("please fill password field");
       document.getElementById('PASS').focus();
@@ -56,7 +65,7 @@ function validateForm(){
       return false;
    }
 
-
+  
     
     if(name.match(regexname)){
     }
