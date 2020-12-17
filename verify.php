@@ -57,7 +57,7 @@ $(".swipebox").swipebox();
 </head>
 <body>
 <!---header--->
-<?php include_once 'header.php'?>
+<?php require 'header.php'?>
 <?php
 if (isset($_SESSION['verify'])) {
      $email=$_SESSION['verify']['email'];
@@ -88,7 +88,6 @@ if (isset($_SESSION['verify'])) {
 <input type="button" value="Submit" id="submit" name="verify">
 <a href="email.php">Resend Email Again</a> 
 </div>
-
 </form>
 </div>	
 <div class="clearfix"> </div>

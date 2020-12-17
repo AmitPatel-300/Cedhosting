@@ -1,32 +1,3 @@
-<?php
-/**
- * Template File Doc Comment
- * 
- * PHP version 7
- *
- * @category Template_Class
- * @package  Template_Class
- * @author   Author <author@domain.com>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://localhost/
- */
-session_start();
-$product=array();
- $_SESSION['cart']=array();
-
-if (isset($_REQUEST['name'])) {
-    $pname=$_REQUEST['name'];
-    $ws=$_REQUEST['ws'];
-    $domain=$_REQUEST['domain'];
-    $mail=$_REQUEST['mail'];
-    $lang=$_REQUEST['lang'];
-    $bandwidth=$_REQUEST['band'];
-    $mprice=$_REQUEST['mprice'];
-    $aprice=$_REQUEST['aprice'];
-    $product=array('pname'=>$pname,'ws'=>$ws,'domain'=>$domain,'mail'=>$mail,'lang'=>$lang,'band'=>$bandwidth,'mprice'=>$mprice,'aprice'=>$aprice);
-}
-array_push($_SESSION['cart'], $product); 
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -71,52 +42,36 @@ $(' #da-thumbs > li ').each( function() { $(this).hoverdir(); } );
 <!--script-->
 </head>
 <body>
-<?php require 'header.php'?>
-<!---header--->
-<div class="container-fluid">
+<?php 
+session_start();
+if (!empty($_SESSION['User'])) {
+
+} else {
+    session_destroy();
+    header('location:login.php');
+} 
+?>
+<?php require_once 'header.php'?>
 <form class='text text-center'>
 <table class="table table-bordered table-hover">
-<?php if (isset($_REQUEST['name']) ) :?>    
-<caption class="text-dark h3 font-weight-bold ">Cart</caption>
-  <thead class="thead text-center">
-
-    <tr>
-      <th scope="col">Product name</th>
-      <th scope="col">Webspace</th>
-      <th scope="col">Domain</th>
-      <th scope="col">Mail</th>
-      <th scope="col">language/support</th>
-      <th scope="col">BandWidth</th>
-      <th scope="col">Month Price</th>
-      <th scope="col">Annual Price</th>
+<caption class="text-dark h3 font-weight-bold ">CHECK OUT</caption>
+  <thead class="thead text-center col-md-4">
+   <h2>ORDER SUMMARY</h2>
+      <tr><th scope="col">Product Detail</th><th><?php echo $_SESSION['cart'][0]['pname']?></th></tr>
+      <tr><th scope="col">Webspace</th><th><?php echo $_SESSION['cart'][0]['ws']?></th></tr>
+      <tr><th scope="col">Domain</th><th><?php echo $_SESSION['cart'][0]['mail']?></th></tr>
+      <tr><th scope="col">Mail</th><th><?php echo $_SESSION['cart'][0]['mail']?></th><tr>
+      <tr><th scope="col">language/support</th><th><?php echo $_SESSION['cart'][0]['lang']?></th></tr>
+      <tr><th scope="col">BandWidth</th><th><?php echo $_SESSION['cart'][0]['band']?></th></tr>
+      <tr><th scope="col">Month Price</th><th><?php echo $_SESSION['cart'][0]['mprice']?></th></tr>
+      <tr><th scope="col">Annual Price</th><th><?php echo $_SESSION['cart'][0]['aprice']?></th></tr>
     </tr>
   </thead>
   <tbody>
-   <tr>
-   <td><?php echo $pname?></td>
-   <td><?php echo $ws?>GB</td>
-   <td><?php echo $domain?></td>
-   <td><?php echo $mail?></td>
-   <td><?php echo $lang?></td>
-   <td><?php echo $bandwidth?></td>
-   <td><?php echo $mprice?></td>
-   <td><?php echo $aprice?></td>
-   </tr>
+
   </tbody>
   </table>
-  <button type="button"  class="btn btn-danger text-center" id="checkout">CHECKOUT</button>
-<?php endif ?>
-<?php if (!isset($_REQUEST['name']) ) : 
-       echo '<p class=h1>CART IS EMPTY</p>'; 
-?> 
-<?php endif?>
+  <button type="button"  class="btn btn-danger text-center" id="placeorder">Place Order</button>
+
    </form>
-</div>
-<?php require 'footer.php';?>
-<script>
-  $(document).ready(function(){
-    $("#checkout").click(function(){
-      window.location.href="checkout.php"; 
-    });
-  });
-</script>
+<?php require_once 'footer.php'?>

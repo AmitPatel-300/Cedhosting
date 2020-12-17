@@ -69,7 +69,7 @@ if (isset($_REQUEST['id'])) {
     </head>
     <body>
         <!---header--->
-            <?php include 'header.php';?>
+            <?php require 'header.php';?>
         <!---header--->
             <!---singleblog--->
                     <div class="content">
@@ -118,9 +118,9 @@ if (isset($_REQUEST['id'])) {
                                                         <li><strong>location</strong> : <img src="images/india.png"></li>
                                                         </ul>
                                                     </div>
-                                                    <a href="#">buy now</a>
+                                                    <a href="cart.php?ws=<?php echo $webspace?>&name=<?php echo $output2[0]['prod_name']?>&domain=<?php echo $domain?>&mail=<?php echo $mail?>&lang=<?php echo $lang?>&band=<?php echo $band?>&mprice=<?php echo $output[0]['mon_price']?>&aprice=<?php echo $output[0]['annual_price']?>">buy now</a>
                                                 </div>
-                                            <?php endforeach; ?>
+                                    <?php endforeach; ?>
                                                 <!-- <div class="col-md-3 linux-price">
                                                     <div class="linux-top">
                                                     <h4>Advanced</h4>
@@ -348,5 +348,5 @@ if (isset($_REQUEST['id'])) {
 
                     </div>
                 <!---footer--->
-                    <?php include 'footer.php';?>
+                    <?php require 'footer.php';?>
                 <!---footer--->

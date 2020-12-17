@@ -1,5 +1,6 @@
 <?php
-require_once 'Admin/Product.php';
+
+ require_once 'Admin/Product.php';
 require_once 'User.php';
 $product=new Product();
 $User=new User();
@@ -16,5 +17,7 @@ case "update":
     $data=$User->update($email, $otp);
     echo $data;
     break;
+
+
 }
 ?>

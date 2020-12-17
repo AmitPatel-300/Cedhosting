@@ -45,14 +45,14 @@ $link=$_SERVER['PHP_SELF'];
                                      <li class=<?php echo ($link=="/training/Cedhosting/Blog.php")?"active":"" ?>><a href="Blog.php">Blog</a></li>
                                      <li class=<?php echo ($link=="/training/Cedhosting/contact.php")?"active":"" ?>><a href="contact.php">Contact</a></li>
                                      <li class=<?php echo ($link=="/training/Cedhosting/cart.php")?"active":"" ?>><a href="cart.php"><i class="fa fa-shopping-cart" style="font-size:21px"></i></a></li>
-                                     <?php if(empty(isset($_SESSION['User']))):?>
+                                        <?php if(empty(isset($_SESSION['User'])) ) :?>
                                         <li class=<?php echo ($link=="/training/Cedhosting/login.php")?"active":"" ?>><a href="login.php">Login</a></li>
-                                     <?php endif?>
+                                        <?php endif?>
                                 
-                                     <?php if(isset($_SESSION['User'])):?>
+                                        <?php if(isset($_SESSION['User']) ) :?>
                                      <li class=<?php echo ($link=="/training/Cedhosting/logout.php")?"active":"" ?>><a href="logout.php">Logout</a></li>
-                                     <?php endif?>
-                                
+                                        <?php endif?>
+                                 
                                 
                             </ul>
                                       
@@ -73,7 +73,7 @@ $link=$_SERVER['PHP_SELF'];
                 success : function(data) {
                     html='';
                     for(var i=0;i<data.length;i++){
-                        html+='<li><a href=catpage.php?id='+data[i]['id']+'>'+data[i]['prod_name']+'</a></li>';
+                        html+='<li><a href=catpage.php?id='+data[i]['id']+'>'+data[i]['prod_name']+'</a></lii>';
                     }
                     $("#hostinglink").html(html);
                 }
