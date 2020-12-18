@@ -47,9 +47,18 @@ session_start();
 if (!empty($_SESSION['User'])) {
 
 } else {
-    session_destroy();
-    header('location:login.php');
-} 
+    //session_destroy();
+    header('location:login.php'); 
+}
+if (isset($_GET['id'])) {
+    $id=$_GET['id'];
+    $index=($id-1);
+    unset($_SESSION['cart'][$index]);
+    echo '<pre>';
+    print_r($_SESSION['cart']);
+     header('location:cart.php');
+    echo '</pre>';
+}
 ?>
 <?php require_once 'header.php'?>
 <form class='text text-center'>
@@ -57,14 +66,7 @@ if (!empty($_SESSION['User'])) {
 <caption class="text-dark h3 font-weight-bold ">CHECK OUT</caption>
   <thead class="thead text-center col-md-4">
    <h2>ORDER SUMMARY</h2>
-      <tr><th scope="col">Product Detail</th><th><?php echo $_SESSION['cart'][0]['pname']?></th></tr>
-      <tr><th scope="col">Webspace</th><th><?php echo $_SESSION['cart'][0]['ws']?></th></tr>
-      <tr><th scope="col">Domain</th><th><?php echo $_SESSION['cart'][0]['mail']?></th></tr>
-      <tr><th scope="col">Mail</th><th><?php echo $_SESSION['cart'][0]['mail']?></th><tr>
-      <tr><th scope="col">language/support</th><th><?php echo $_SESSION['cart'][0]['lang']?></th></tr>
-      <tr><th scope="col">BandWidth</th><th><?php echo $_SESSION['cart'][0]['band']?></th></tr>
-      <tr><th scope="col">Month Price</th><th><?php echo $_SESSION['cart'][0]['mprice']?></th></tr>
-      <tr><th scope="col">Annual Price</th><th><?php echo $_SESSION['cart'][0]['aprice']?></th></tr>
+    
     </tr>
   </thead>
   <tbody>

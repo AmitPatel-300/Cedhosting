@@ -12,8 +12,9 @@
  */
 session_start();
 $product=array();
- $_SESSION['cart']=array();
-
+if(isset($_REQUEST['name'])){
+    $productname=$_REQUEST['name'];
+}
 if (isset($_REQUEST['name'])) {
     $pname=$_REQUEST['name'];
     $ws=$_REQUEST['ws'];
@@ -24,8 +25,15 @@ if (isset($_REQUEST['name'])) {
     $mprice=$_REQUEST['mprice'];
     $aprice=$_REQUEST['aprice'];
     $product=array('pname'=>$pname,'ws'=>$ws,'domain'=>$domain,'mail'=>$mail,'lang'=>$lang,'band'=>$bandwidth,'mprice'=>$mprice,'aprice'=>$aprice);
+    $_SESSION['cart'][]=$product;
 }
-array_push($_SESSION['cart'], $product); 
+
+// if (isset($_SESSION['cart'])) {
+//       echo '<pre>';
+//       print_r ($_SESSION['cart']);
+//       echo '</pre>';
+// }
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -76,11 +84,12 @@ $(' #da-thumbs > li ').each( function() { $(this).hoverdir(); } );
 <div class="container-fluid">
 <form class='text text-center'>
 <table class="table table-bordered table-hover">
-<?php if (isset($_REQUEST['name']) ) :?>    
+<!--  -->
 <caption class="text-dark h3 font-weight-bold ">Cart</caption>
   <thead class="thead text-center">
-
+ 
     <tr>
+   
       <th scope="col">Product name</th>
       <th scope="col">Webspace</th>
       <th scope="col">Domain</th>
@@ -89,25 +98,35 @@ $(' #da-thumbs > li ').each( function() { $(this).hoverdir(); } );
       <th scope="col">BandWidth</th>
       <th scope="col">Month Price</th>
       <th scope="col">Annual Price</th>
+      <th scope="col">Action</th>
     </tr>
+     
   </thead>
   <tbody>
-   <tr>
-   <td><?php echo $pname?></td>
-   <td><?php echo $ws?>GB</td>
-   <td><?php echo $domain?></td>
-   <td><?php echo $mail?></td>
-   <td><?php echo $lang?></td>
-   <td><?php echo $bandwidth?></td>
-   <td><?php echo $mprice?></td>
-   <td><?php echo $aprice?></td>
+    <?php foreach ($_SESSION['cart'] as $key) {?>
+      <tr onclick="myFunction(this)">      
+      <td><?php echo $key['pname']?></td>
+      <td><?php echo $key['ws']?></td>
+      <td><?php echo $key['domain']?></td>
+      <td><?php echo $key['mail']?></td>
+      <td><?php echo $key['lang']?></td>
+      <td><?php echo $key['band']?></td>
+      <td><?php echo $key['mprice']?></td>
+      <td><?php echo $key['aprice']?></td>
+      <td><button type="button"  class="btn btn-danger">Delete</button></td>
+      </tr>
+        <?php
+}  
+?>
+   
+   
    </tr>
   </tbody>
   </table>
-  <button type="button"  class="btn btn-danger text-center" id="checkout">CHECKOUT</button>
-<?php endif ?>
+  <button type="button"  class="btn btn-success text-center" id="checkout">CHECKOUT</button>
+
 <?php if (!isset($_REQUEST['name']) ) : 
-       echo '<p class=h1>CART IS EMPTY</p>'; 
+      //  echo '<p class=h1>CART IS EMPTY</p>'; 
 ?> 
 <?php endif?>
    </form>
@@ -118,5 +137,18 @@ $(' #da-thumbs > li ').each( function() { $(this).hoverdir(); } );
     $("#checkout").click(function(){
       window.location.href="checkout.php"; 
     });
+    $(".del").click(function(){
+     var value=$(this).val();
+     window.location.href="checkout.php?name="+value;
+    });
+
   });
+</script>
+<script>
+function myFunction(x) {
+  alert("Row index is: " + x.rowIndex);
+  var index=x.rowIndex;
+  alert(index);
+  window.location.href="checkout.php?id="+index;
+}
 </script>
