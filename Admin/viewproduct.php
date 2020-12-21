@@ -170,7 +170,7 @@
             onfocusout="FreeDomain()" aria-describedby="emailHelp" value="">
             <div><small id="fd" class="text text-danger"></small></div>
             <label class="text-dark h5" for="exam	2	PHPpleInputEmail1">
-             Language/technology support</label>
+            Language/technology support</label>
             <input type="text" class="form-control" id="lsp" 
             onfocusout="LangSupp()" aria-describedby="emailHelp" value="">
             <div><small id="LSP" class="text text-danger"></small></div>

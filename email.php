@@ -34,7 +34,7 @@ $otp=mt_rand("10000", "99999");
 $_SESSION['OTP']=$otp;
 require "vendor/autoload.php";
 
-$robo = 'buddyamit300@gmail.com';
+$robo = 'example2020@gmail.com';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -60,12 +60,12 @@ try {
 
     $mailer->Host = 'ssl://smtp.gmail.com';
     $mailer->SMTPAuth = true;
-    $mailer->Username = 'buddyamit300@gmail.com';
-    $mailer->Password = 'amitcool';
+    $mailer->Username = 'example2020@gmail.com';
+    $mailer->Password = '1234';
     $mailer->SMTPSecure = 'ssl';
     $mailer->Port = 465;
 
-    $mailer->setFrom('buddyamit300@gmail.com', 'Name of sender');
+    $mailer->setFrom('example2020@gmail.com', 'Name of sender');
     $mailer->addAddress($email, 'Name of recipient');
 
     $mailer->isHTML(true);
